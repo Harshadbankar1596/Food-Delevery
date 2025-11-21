@@ -1,45 +1,73 @@
 import React from "react";
-import "./Footer.css";
 import { assets } from "../../assets/frontend_assets/assets";
-
+import Name from "../Name";
 const Footer = () => {
   return (
-    <div className="footer" id="footer">
-      <div className="footer-content">
-        <div className="footer-content-left">
-          <img src={assets.logo} alt="" />
-          <p>
+    <div
+      id="footer"
+      className="w-full bg-gray-100 mt-16 pt-12 pb-6 px-6 md:px-16"
+    >
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+
+        {/* Left Section */}
+        <div className="flex flex-col gap-5">
+          <Name />
+          <p className="text-gray-600 leading-relaxed">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque
             nostrum iure suscipit maiores non harum incidunt unde magnam
             molestias ipsum qui vel aut natus aspernatur ipsa dignissimos,
             numquam assumenda deserunt.
           </p>
-          <div className="footer-social-icons">
-            <img src={assets.facebook_icon} alt="" />
-            <img src={assets.twitter_icon} alt="" />
-            <img src={assets.linkedin_icon} alt="" />
+
+          <div className="flex gap-4 mt-2">
+            <img
+              src={assets.facebook_icon}
+              alt="facebook"
+              className="w-7 cursor-pointer hover:opacity-75"
+            />
+            <img
+              src={assets.twitter_icon}
+              alt="twitter"
+              className="w-7 cursor-pointer hover:opacity-75"
+            />
+            <img
+              src={assets.linkedin_icon}
+              alt="linkedin"
+              className="w-7 cursor-pointer hover:opacity-75"
+            />
           </div>
         </div>
-        <div className="footer-content-center">
-          <h2>Company</h2>
-          <ul>
-            <li>Home</li>
-            <li>About us</li>
-            <li>Delivery</li>
-            <li>Privacy Policy</li>
+
+        {/* Middle Section */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">Company</h2>
+          <ul className="flex flex-col gap-2 text-gray-600">
+            <li className="cursor-pointer hover:text-orange-500">Home</li>
+            <li className="cursor-pointer hover:text-orange-500">About us</li>
+            <li className="cursor-pointer hover:text-orange-500">Delivery</li>
+            <li className="cursor-pointer hover:text-orange-500">
+              Privacy Policy
+            </li>
           </ul>
         </div>
-        <div className="footer-content-right">
-          <h2>Get in touch</h2>
-          <ul>
-            <li>+92-308-4900522</li>
-            <li>contact@tomato.com</li>
+
+        {/* Right Section */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">Get in touch</h2>
+          <ul className="flex flex-col gap-2 text-gray-600">
+            <li className="cursor-pointer">+92-308-4900522</li>
+            <li className="cursor-pointer hover:text-orange-500">
+              contact@optimizeddfood.com
+            </li>
           </ul>
         </div>
+
       </div>
-      <hr />
-      <p className="footer-copyright">
-        Copyright 2024 @ Tomato.com - All Right Reserved.
+
+      <hr className="my-8 border-gray-300" />
+
+      <p className="text-center text-gray-600">
+        Copyright 2024 @ optimizeddfood.com - All Rights Reserved.
       </p>
     </div>
   );
