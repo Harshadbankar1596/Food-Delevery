@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import { toast } from "react-toastify";
 import Logo from "../Logo";
+import Name from "../Name"
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
@@ -21,8 +22,9 @@ const Navbar = ({ setShowLogin }) => {
     <div className="bg-blue-900 rounded-2xl m-2 flex items-center justify-between px-6 py-4 shadow-md sticky top-0 z-50">
 
       {/* Logo */}
-      <Link to="/">
+      <Link className="flex items-center justify-center gap-2" to="/">
         <Logo brandName="optimizedd food" />
+        <Name />
       </Link>
 
       {/* Menu Items */}

@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import "./Add.css";
+import React, { useState, useContext, useEffect } from "react";
 import { assets } from "../../assets/assets";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
-import { useEffect } from "react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Add = ({url}) => {
-  const navigate=useNavigate();
-  const {token,admin} = useContext(StoreContext);
+const Add = ({ url }) => {
+  const navigate = useNavigate();
+  const { token, admin } = useContext(StoreContext);
+
   const [image, setImage] = useState(false);
   const [data, setData] = useState({
     name: "",
@@ -27,6 +25,7 @@ const Add = ({url}) => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
@@ -34,7 +33,10 @@ const Add = ({url}) => {
     formData.append("category", data.category);
     formData.append("image", image);
 
-    const response = await axios.post(`${url}/api/food/add`, formData,{headers:{token}});
+    const response = await axios.post(`${url}/api/food/add`, formData, {
+      headers: { token },
+    });
+
     if (response.data.success) {
       setData({
         name: "",
@@ -48,23 +50,35 @@ const Add = ({url}) => {
       toast.error(response.data.message);
     }
   };
-  useEffect(()=>{
-    if(!admin && !token){
+
+  useEffect(() => {
+    if (!admin && !token) {
       toast.error("Please Login First");
-       navigate("/");
+      navigate("/");
     }
-  },[])
+  }, []);
+
   return (
-    <div className="add">
-      <form onSubmit={onSubmitHandler} className="flex-col">
-        <div className="add-img-upload flex-col">
-          <p>Upload image</p>
-          <label htmlFor="image">
+    <div className="w-full flex justify-center py-10 px-4">
+      <form
+        onSubmit={onSubmitHandler}
+        className="w-full max-w-lg bg-white shadow-md border border-gray-200 rounded-xl p-6 flex flex-col gap-6"
+      >
+        {/* Upload Image */}
+        <div className="flex flex-col gap-2">
+          <p className="font-medium text-gray-700">Upload image</p>
+
+          <label
+            htmlFor="image"
+            className="w-full h-48 border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center cursor-pointer hover:border-orange-400 transition"
+          >
             <img
               src={image ? URL.createObjectURL(image) : assets.upload_area}
               alt=""
+              className="max-h-full object-contain"
             />
           </label>
+
           <input
             onChange={(e) => setImage(e.target.files[0])}
             type="file"
@@ -73,8 +87,10 @@ const Add = ({url}) => {
             required
           />
         </div>
-        <div className="add-product-name flex-col">
-          <p>Product name</p>
+
+        {/* Product Name */}
+        <div className="flex flex-col gap-2">
+          <p className="font-medium text-gray-700">Product name</p>
           <input
             onChange={onChangeHandler}
             value={data.name}
@@ -82,27 +98,35 @@ const Add = ({url}) => {
             name="name"
             placeholder="Type here"
             required
+            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
           />
         </div>
-        <div className="add-product-description flex-col">
-          <p>Product description</p>
+
+        {/* Product Description */}
+        <div className="flex flex-col gap-2">
+          <p className="font-medium text-gray-700">Product description</p>
           <textarea
             onChange={onChangeHandler}
             value={data.description}
             name="description"
-            rows="6"
+            rows="5"
             placeholder="Write content here"
             required
+            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
           ></textarea>
         </div>
-        <div className="add-category-price">
-          <div className="add-category flex-col">
-            <p>Product category</p>
+
+        {/* Category + Price */}
+        <div className="grid grid-cols-2 gap-4">
+          {/* Category */}
+          <div className="flex flex-col gap-2">
+            <p className="font-medium text-gray-700">Product category</p>
             <select
               name="category"
               required
               onChange={onChangeHandler}
               value={data.category}
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
             >
               <option value="Salad">Salad</option>
               <option value="Rolls">Rolls</option>
@@ -114,8 +138,10 @@ const Add = ({url}) => {
               <option value="Noodles">Noodles</option>
             </select>
           </div>
-          <div className="add-price flex-col">
-            <p>Product price</p>
+
+          {/* Price */}
+          <div className="flex flex-col gap-2">
+            <p className="font-medium text-gray-700">Product price</p>
             <input
               onChange={onChangeHandler}
               value={data.price}
@@ -123,10 +149,16 @@ const Add = ({url}) => {
               name="price"
               placeholder="$20"
               required
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
           </div>
         </div>
-        <button type="submit" className="add-btn">
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600 transition"
+        >
           ADD
         </button>
       </form>
